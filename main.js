@@ -24,7 +24,8 @@ const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, inval
 
 
 // Add your functions below:
-const validateCred = array => {
+// Validate Credit Card number
+ const validateCred = array => {
     let contador = 1;
     let sumapar = 0;
     let sumaimpar = 0;
@@ -50,37 +51,58 @@ const validateCred = array => {
     else {
         return false;
     }
-};
+}; 
 
-console.log(validateCred(mystery1));
-
+const invalidArray = [];
+// Get the wrong numbers in an array
 const findInvalidCards = arrayOfArrays => {
-  const invalidArray = [];
   for (let i = 0; i < arrayOfArrays.length; i++) {
     if (!validateCred(arrayOfArrays[i])) {
         invalidArray.push(arrayOfArrays[i]);    
         }
   }
-  console.log(invalidArray);
 };
-
+// Devuelve las empresas que crearon mal los numeros de tarjeta
 const idInvalidCardCompanies = invalidArrayOfArrays => {
+    let companies = [];
+    let tres = 0;
+    let cuatro = 0;
+    let cinco = 0;
+    let seis = 0;
+    let siete = 0;
     for (let i = 0; i < invalidArrayOfArrays.length; i++) {
-      for (let j = 0; j < invalidArrayOfArrays[i].length; j++) {      
-          if (invalidArrayOfArrays[i][0] !== 3 || invalidArrayOfArrays[i][0] !== 4 || invalidArrayOfArrays[i][0] !== 5 || invalidArrayOfArrays[i][0] !== 6) {
-        console.log('Company not found');
-      }
-        
-      }
+        if (invalidArrayOfArrays[i][0] === 3) {
+            if (tres === 0) {
+                companies.push('Amex');
+            }
+            tres++;
+        }
+        else if (invalidArrayOfArrays[i][0] === 4) {
+            if (cuatro === 0) {
+                companies.push('Visa');
+            }
+            cuatro++;
+        }
+        else if (invalidArrayOfArrays[i][0] === 5) {
+            if (cinco === 0) {
+                companies.push('Mastercard');
+            }
+            cinco++;
+        }
+        else if (invalidArrayOfArrays[i][0] === 6) {
+            if (seis === 0) {
+                companies.push('Discover');
+            }
+            seis++;
+        } else {
+            companies.push('Company not found');
+        }
     }
+    return companies;
 };
-
 
 findInvalidCards(batch);
-//console.log()
 
+console.log(invalidArray); //Debe imprimir un arreglo con los numeros defectuosos
 
-
-
-
-
+console.log(idInvalidCardCompanies(invalidArray));
