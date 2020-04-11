@@ -15,7 +15,7 @@ const invalid5 = [5, 3, 8, 2, 0, 1, 9, 7, 7, 2, 8, 8, 3, 8, 5, 4];
 // Can be either valid or invalid
 const mystery1 = [3, 4, 4, 8, 0, 1, 9, 6, 8, 3, 0, 5, 4, 1, 4];
 const mystery2 = [5, 4, 6, 6, 1, 0, 0, 8, 6, 1, 6, 2, 0, 2, 3, 9];
-const mystery3 = [6, 0, 1, 1, 3, 7, 7, 0, 2, 0, 9, 6, 2, 6, 5, 6, 2, 0, 3];
+const mystery3 = [8, 0, 1, 1, 3, 7, 7, 0, 2, 0, 9, 6, 2, 6, 5, 6, 2, 0, 3];
 const mystery4 = [4, 9, 2, 9, 8, 7, 7, 1, 6, 9, 2, 1, 7, 0, 9, 3];
 const mystery5 = [4, 9, 1, 3, 5, 4, 0, 4, 6, 3, 0, 7, 2, 5, 2, 3];
 
@@ -24,6 +24,7 @@ const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, inval
 
 
 // Add your functions below:
+
 // Validate Credit Card number
  const validateCred = array => {
     let contador = 1;
@@ -34,27 +35,23 @@ const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, inval
         if (contador % 2 === 0) {
             if (array[i] * 2 > 9) {
                 sumapar = sumapar + array[i] * 2 - 9;
-            }
-            else {
+            } else {
                 sumapar = sumapar + array[i] * 2;
             }
-        } 
-        else if (contador % 2 !== 0) {
+        } else if (contador % 2 !== 0) {
             sumaimpar = sumaimpar + array[i];
-        } 
-        contador++;
-    }
-    sumatotal = sumaimpar + sumapar;
+        } contador++;
+    } sumatotal = sumaimpar + sumapar;
     if (sumatotal % 10 === 0) {
         return true;
-    }
-    else {
+    } else {
         return false;
     }
 }; 
 
 const invalidArray = [];
-// Get the wrong numbers in an array
+
+// Get the wrong numbers in an array of credit card numbers
 const findInvalidCards = arrayOfArrays => {
   for (let i = 0; i < arrayOfArrays.length; i++) {
     if (!validateCred(arrayOfArrays[i])) {
@@ -62,7 +59,7 @@ const findInvalidCards = arrayOfArrays => {
         }
   }
 };
-// Devuelve las empresas que crearon mal los numeros de tarjeta
+// Returns the companies distinctly that issued the wrong numbers
 const idInvalidCardCompanies = invalidArrayOfArrays => {
     let companies = [];
     let tres = 0;
@@ -95,7 +92,10 @@ const idInvalidCardCompanies = invalidArrayOfArrays => {
             }
             seis++;
         } else {
+            if (siete === 0) {
             companies.push('Company not found');
+            }
+            siete++;
         }
     }
     return companies;
@@ -103,6 +103,6 @@ const idInvalidCardCompanies = invalidArrayOfArrays => {
 
 findInvalidCards(batch);
 
-console.log(invalidArray); //Debe imprimir un arreglo con los numeros defectuosos
+console.log(invalidArray); //Prints out an array with the wrong numbers
 
 console.log(idInvalidCardCompanies(invalidArray));
