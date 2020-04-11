@@ -22,14 +22,20 @@ const mystery5 = [4, 9, 1, 3, 5, 4, 0, 4, 6, 3, 0, 7, 2, 5, 2, 3];
 // An array of all the arrays above
 const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, invalid3, invalid4, invalid5, mystery1, mystery2, mystery3, mystery4, mystery5];
 
+// Visa credit card numbers to validate
+const number1 = '4916313205097696';
+const number2 = '4929132657470085'
+const number3 = '7720999238724205'
+
+const batch1 = [number1, number2, number3];
 
 // Add your functions below:
 
-// Validate Credit Card number
+// Validate Credit Card number (array of numbers)
  const validateCred = array => {
+    array = numberIntoArray(array);
     let contador = 1;
     let sumapar = 0;
-    let sumaimpar = 0;
     let sumatotal = 0;
     for (let i = array.length - 1; i >= 0; i--) {
         if (contador % 2 === 0) {
@@ -39,9 +45,9 @@ const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, inval
                 sumapar = sumapar + array[i] * 2;
             }
         } else if (contador % 2 !== 0) {
-            sumaimpar = sumaimpar + array[i];
+            sumapar = sumapar + array[i];
         } contador++;
-    } sumatotal = sumaimpar + sumapar;
+    } sumatotal = sumapar;
     if (sumatotal % 10 === 0) {
         return true;
     } else {
@@ -58,6 +64,7 @@ const findInvalidCards = arrayOfArrays => {
         invalidArray.push(arrayOfArrays[i]);    
         }
   }
+  return invalidArray;
 };
 // Returns the companies distinctly that issued the wrong numbers
 const idInvalidCardCompanies = invalidArrayOfArrays => {
@@ -100,9 +107,17 @@ const idInvalidCardCompanies = invalidArrayOfArrays => {
     }
     return companies;
 };
+// Convert a string of numbers into an array of numbers
+const numberIntoArray = numero => {
+    let arreglo = [];
+    for (let i = 0; i < numero.length; i++) {
+        arreglo.push(parseInt(numero[i]));
+    }
+    return arreglo;
+}
 
-findInvalidCards(batch);
+console.log(validateCred(numberIntoArray('5178843674350226'))); // Validate the number between brackets
 
-console.log(invalidArray); //Prints out an array with the wrong numbers
+console.log(findInvalidCards(batch)); //Prints out an array with the wrong numbers
 
-console.log(idInvalidCardCompanies(invalidArray));
+console.log(idInvalidCardCompanies(findInvalidCards(batch))); // Prints out the companies that issued the wrong numbers
